@@ -4,8 +4,15 @@ window.onload = function(){
     submitButton.addEventListener('click', clickcb);
 }
 
-async function clickcb(){
-    
+
+export default async function clickcb(){
+    const date = document.querySelector('#date').value
+    const budget = document.querySelector('#budget').value
     const messageBox = document.getElementById("messageBox")
-    messageBox.innerHTML = "Create Budget Success";
+    const budget_record = {date, budget}
+
+    axios.post('/createBudget/', budget_record)
+    .then(res=>{
+        messageBox.innerHTML = res.data.message
+    })
 }
