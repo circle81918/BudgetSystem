@@ -20,7 +20,10 @@ class FlaskAppWrapper(object):
         json_data = request.get_json(force=True, silent=True)
         date = json_data['date']
         budget = json_data['budget']
-        return Response(json.dumps({'message':self.budget_manager.createBudget(date, budget)}))
+        if self.budget_manager.checkBudgetExist(date, budget) :
+            return Response(json.dumps({'message': "Update Budget Success"}))
+        else:
+            return Response(json.dumps({'message':self.budget_manager.createBudget(date, budget)}))
 
     def registerAPI(self):
         self.app.add_url_rule('/', 'index', self.index)

@@ -22,3 +22,9 @@ class Budget_Manager(object):
             except conn.Error:
                 return "Create Budget Fail"
 
+    def checkBudgetExist(self, date, budget):
+        with sqlite3.connect(self._db_path) as con:
+            cur = con.cursor()
+            cur.execute("SELECT * FROM BUDGET_TABLE WHERE DATE=:DATE", {"DATE": date})
+            return bool(cur.fetchone())
+
