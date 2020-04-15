@@ -18,6 +18,21 @@ class BudgetSystemE2ETest(unittest.TestCase):
         submit_btn = self.browser.find_element_by_id('submit').click()
         result_text = self.browser.find_element_by_id("messageBox").text
         self.assertEqual(result_text, "Create Budget Success")
+    def testUpdateAExistBudgetAndReturnSuccess(self):
+        #Arrange
+        date_text = self.browser.find_element_by_id('date').send_keys(202003)
+        budget_text = self.browser.find_element_by_id('budget').send_keys(30000)
+        submit_btn = self.browser.find_element_by_id('submit').click()
+        self.browser.find_element_by_id('date').clear()
+        self.browser.find_element_by_id('budget').clear()
+        #Act
+        date_text = self.browser.find_element_by_id('date').send_keys(202003)
+        budget_text = self.browser.find_element_by_id('budget').send_keys(40000)
+        submit_btn = self.browser.find_element_by_id('submit').click()
+        #Assert
+        result_text = self.browser.find_element_by_id("messageBox").text
+        self.assertEqual(result_text, "Update Budget Success")
+
     def tearDown(self):
         self.browser.close()
         self.app_process.kill()
