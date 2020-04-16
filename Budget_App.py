@@ -21,7 +21,7 @@ class FlaskAppWrapper(object):
         date = json_data['date']
         budget = json_data['budget']
         if self.budget_manager.checkBudgetExist(date, budget) :
-            return Response(json.dumps({'message': "Update Budget Success"}))
+            return Response(json.dumps({'message':self.budget_manager.updateBudget(date, budget)}))
         else:
             return Response(json.dumps({'message':self.budget_manager.createBudget(date, budget)}))
 

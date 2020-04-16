@@ -22,6 +22,16 @@ class Budget_Manager(object):
             except conn.Error:
                 return "Create Budget Fail"
 
+    def updateBudget(self, date, budget):
+        with sqlite3.connect(self._db_path) as con:
+            try:
+                cur = con.cursor()
+                cur.execute("UPDATE BUDGET_TABLE SET BUDGET=? WHERE DATE=?", (budget, date))
+                con.commit()
+                return "Update Budget Success"
+            except conn.Error:
+                return "Update Budget Fail"
+                
     def checkBudgetExist(self, date, budget):
         with sqlite3.connect(self._db_path) as con:
             cur = con.cursor()
